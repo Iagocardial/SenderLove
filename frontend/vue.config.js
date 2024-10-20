@@ -1,10 +1,10 @@
-export function chainWebpack(config) {
-  config.module
-    .rule('vue')
-    .use('vue-loader')
-    .loader('vue-loader')
-    .tap((options) => {
-      // alterar opções do loader se necessário
-      return options;
-    });
-}
+module.exports = {
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',  // Porta onde o backend está rodando
+        changeOrigin: true,
+      },
+    },
+  },
+};

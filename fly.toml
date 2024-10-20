@@ -1,0 +1,54 @@
+app = "seu-nome-de-app"
+
+# Configuração do backend
+[build]
+  dockerfile = "backend/Dockerfile"  # Caminho para o Dockerfile do backend
+
+[env]
+  NODE_ENV = "production"
+
+[[services]]
+  internal_port = 5000
+  protocol = "tcp"
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80  # Porta pública para o backend
+
+  [services.http_checks]
+    interval = 10000
+    method = "GET"
+    path = "/"
+    protocol = "http"
+    timeout = 2000
+    tls_skip_verify = false
+
+# Configuração do frontend
+[[services]]
+  internal_port = 80
+  protocol = "tcp"
+
+  [build]
+    dockerfile = "frontend/Dockerfile"  # Caminho para o Dockerfile do frontend
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 8080  # Porta pública para o frontend
+
+  [services.http_checks]
+    interval = 10000
+    method = "GET"
+    path = "/"
+    protocol = "http"
+    timeout = 2000
+    tls_skip_verify = false

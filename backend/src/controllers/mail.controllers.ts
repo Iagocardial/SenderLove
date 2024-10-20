@@ -2,25 +2,25 @@ import { Request, Response } from 'express';
 import { transport } from '../config/mailer.config.ts';
 import { giftIdeas } from '../mail-templates/emailTemplates.ts';
 
-export const sendMail = async (req: Request, res: Response): Promise<void> => {
+export const sendMail = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { name, email } = req.body as {
-      name: string;
-      email: string;
-    };
+    const { name, email } = req.body;
 
-    await transport.sendMail({
+    const info = await transport.sendMail({
       to: email,
       subject: `[Sender Love]`,
       html: giftIdeas,
     });
 
-    res.status(200).json({ message: "Successfully sent message" });
+    return info
+
   } catch (error) {
+    console.error('Erro ao enviar o e-mail:', error);
+
     if (error instanceof Error) {
-      res.status(400).json({ message: error.message });
-    } else {
-      res.status(400).json({ message: 'Unknown error occurred' });
+      return res.status(400).json({ message: error.message });
     }
+
+    return res.status(400).json({ message: 'Unknown error occurred' });
   }
 };
