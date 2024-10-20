@@ -10,5 +10,5 @@
     "allowImportingTsExtensions": true,
     "outDir": "./dist"
   },
-  "include": ["src/**/*", "app.ts"]
+  "include": ["backend/src/**/*", "app.ts"]
 }
