@@ -1,14 +1,15 @@
 app = "seu-nome-de-app"
 
-# Configuração do backend
+# Configuração geral de build (não duplicada)
 [build]
-  dockerfile = "backend/Dockerfile"  # Caminho para o Dockerfile do backend
+  # Não especificamos aqui o dockerfile, vamos definir cada um nos serviços
 
 [env]
   NODE_ENV = "production"
 
+# Serviço do backend
 [[services]]
-  internal_port = 5000
+  internal_port = 5000  # Porta do backend
   protocol = "tcp"
 
   [services.concurrency]
@@ -28,13 +29,13 @@ app = "seu-nome-de-app"
     timeout = 2000
     tls_skip_verify = false
 
-# Configuração do frontend
-[[services]]
-  internal_port = 80
-  protocol = "tcp"
+  [services.build]
+    dockerfile = "./backend/Dockerfile"  # Especifica o Dockerfile do backend
 
-  [build]
-    dockerfile = "frontend/Dockerfile"  # Caminho para o Dockerfile do frontend
+# Serviço do frontend
+[[services]]
+  internal_port = 80  # Porta do NGINX no frontend
+  protocol = "tcp"
 
   [services.concurrency]
     hard_limit = 25
@@ -52,3 +53,6 @@ app = "seu-nome-de-app"
     protocol = "http"
     timeout = 2000
     tls_skip_verify = false
+
+  [services.build]
+    dockerfile = "./frontend/Dockerfile"  # Especifica o Dockerfile do frontend
