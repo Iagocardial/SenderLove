@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { transport } from '../config/mailer.config.ts';
-import { giftIdeas } from '../mail-templates/emailTemplates.ts';
+import { transport } from '../config/mailer.config';
+import { giftIdeas } from '../mail-templates/emailTemplates';
 
 export const sendMail = async (req: Request, res: Response): Promise<any> => {
   try {

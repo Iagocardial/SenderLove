@@ -14,7 +14,7 @@ RUN npm run build
 # Expor a porta que o servidor utiliza
 EXPOSE 5001
 # Comando para iniciar o backend
-CMD ["npm", "start"]
+CMD ["npm", "start-prod"]
 
 # Frontend Target
 FROM node:18-alpine AS frontend-build

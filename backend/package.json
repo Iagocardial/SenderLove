@@ -2,12 +2,13 @@
   "name": "senderlover",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "type": "commonjs",
+  "main": "src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.ts",
-    "start-prod": "node app.ts",
-    "dev": "ts-node app.ts",
+    "start": "nodemon src/app.ts",
+    "start-prod": "ts-node src/app.ts",
+    "dev": "ts-node src/app.ts",
     "build": "tsc"
   },
   "keywords": [],
