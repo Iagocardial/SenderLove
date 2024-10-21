@@ -1,18 +1,11 @@
-# Usar uma imagem base Node.js
+# Usar a imagem base do Node.js
 FROM node:18-alpine
 
-# Criar o diretório de trabalho
 WORKDIR /app
-
-# Copiar package.json e instalar dependências
 COPY package*.json ./
 RUN npm install --production
-
-# Copiar o restante do código
 COPY . .
 
-# Expor a porta 5000 (ou a porta que seu backend usa)
 EXPOSE 5001
 
-# Comando para iniciar o backend
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]

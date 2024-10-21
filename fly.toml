@@ -1,15 +1,11 @@
-app = "seu-nome-de-app"
+app = "sender-love"
 
-# Configuração geral de build (não duplicada)
+# Configurações gerais de build
 [build]
-  # Não especificamos aqui o dockerfile, vamos definir cada um nos serviços
-
-[env]
-  NODE_ENV = "production"
 
 # Serviço do backend
 [[services]]
-  internal_port = 5000  # Porta do backend
+  internal_port = 5001   # Porta interna do backend
   protocol = "tcp"
 
   [services.concurrency]
@@ -21,20 +17,12 @@ app = "seu-nome-de-app"
     handlers = ["http"]
     port = 80  # Porta pública para o backend
 
-  [services.http_checks]
-    interval = 10000
-    method = "GET"
-    path = "/"
-    protocol = "http"
-    timeout = 2000
-    tls_skip_verify = false
-
   [services.build]
-    dockerfile = "./backend/Dockerfile"  # Especifica o Dockerfile do backend
+    dockerfile = "./backend/Dockerfile"  # Caminho para o Dockerfile do backend
 
 # Serviço do frontend
 [[services]]
-  internal_port = 80  # Porta do NGINX no frontend
+  internal_port = 80   # Porta interna do frontend (NGINX)
   protocol = "tcp"
 
   [services.concurrency]
@@ -46,13 +34,5 @@ app = "seu-nome-de-app"
     handlers = ["http"]
     port = 8080  # Porta pública para o frontend
 
-  [services.http_checks]
-    interval = 10000
-    method = "GET"
-    path = "/"
-    protocol = "http"
-    timeout = 2000
-    tls_skip_verify = false
-
   [services.build]
-    dockerfile = "./frontend/Dockerfile"  # Especifica o Dockerfile do frontend
+    dockerfile = "./frontend/Dockerfile"  # Caminho para o Dockerfile do frontend
