@@ -1,12 +1,14 @@
 {
-  "name": "senderlovev2",
+  "name": "senderlover",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "dev": "ts-node app.ts"
+    "start": "nodemon app.ts",
+    "start-prod": "node app.ts",
+    "dev": "ts-node app.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
