@@ -7,7 +7,6 @@ app.use(bodyParser.json());
 
 app.use('/api', subscribeRoutes);
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`Server rodando na porta ${PORT}`);
+app.listen(5001, '0.0.0.0', () => {
+  console.log(`Server rodando na porta 5001`);
 });
