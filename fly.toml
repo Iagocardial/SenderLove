@@ -1,65 +1,28 @@
 app = "senderlover"
 primary_region = "gru"
-kill_timeout = 120
 
 # Configuração global de build
 [build]
-  # Usando build targets para backend e frontend
   dockerfile = "./Dockerfile"
 
 # Configuração do backend
 [[services]]
   internal_port = 5001  # Porta interna do backend
   protocol = "tcp"
-
   [services.build]
     target = "backend"  # Target para o backend no Dockerfile
-
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = 80  # Porta pública para o backend (API)
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443  # Porta pública para HTTPS
-
-  [[services.tcp_checks]]
-    grace_period = "1s"
-    interval = "15s"
-    restart_limit = 0
-    timeout = "2s"
 
 # Configuração do frontend
 [[services]]
   internal_port = 80  # Porta interna usada pelo NGINX (frontend)
   protocol = "tcp"
-
   [services.build]
     target = "frontend"  # Target para o frontend no Dockerfile
 
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
-
   [[services.ports]]
     handlers = ["http"]
-    port = 8080  # Porta pública para o frontend
+    port = 8080  # Porta pública para o frontend (HTTP)
 
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443  # Porta pública para HTTPS
-
-  [[services.tcp_checks]]
-    grace_period = "1s"
-    interval = "15s"
-    restart_limit = 0
-    timeout = "2s"
-
-[env]
-  NODE_ENV = "production"
+[[services.ports]]
+  handlers = ["tls", "http"]
+  port = 443  # Porta pública para HTTPS
