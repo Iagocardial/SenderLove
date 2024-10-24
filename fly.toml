@@ -1,28 +1,35 @@
-app = "senderlover"
+app = "senderlover"  # Nome da aplicação Fly.io para o monorepo
 primary_region = "gru"
-
-# Configuração global de build
-[build]
-  dockerfile = "./Dockerfile"
+kill_timeout = 120
 
 # Configuração do backend
 [[services]]
-  internal_port = 5001  # Porta interna do backend
+  internal_port = 5001  # Porta do backend
   protocol = "tcp"
-  [services.build]
-    target = "backend"  # Target para o backend no Dockerfile
 
-# Configuração do frontend
-[[services]]
-  internal_port = 80  # Porta interna usada pelo NGINX (frontend)
-  protocol = "tcp"
   [services.build]
-    target = "frontend"  # Target para o frontend no Dockerfile
+    target = "backend"  # Etapa de build do backend
 
   [[services.ports]]
     handlers = ["http"]
-    port = 8080  # Porta pública para o frontend (HTTP)
+    port = 80  # Porta pública para o backend
 
-[[services.ports]]
-  handlers = ["tls", "http"]
-  port = 443  # Porta pública para HTTPS
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443  # Porta pública para HTTPS
+
+# Configuração do frontend
+[[services]]
+  internal_port = 80  # Porta para o frontend (Nginx)
+  protocol = "tcp"
+
+  [services.build]
+    target = "frontend"  # Etapa de build do frontend
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 8080  # Porta pública para o frontend
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443  # Porta pública para HTTPS
