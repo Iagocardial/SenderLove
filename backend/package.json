@@ -9,7 +9,8 @@
     "start": "nodemon src/app.ts",
     "start-prod": "ts-node src/app.ts",
     "dev": "ts-node src/app.ts",
-    "build": "tsc"
+    "build": "tsc && npm run copy-templates",
+    "copy-templates": "cp -R src/mail-templates dist/"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,7 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.7.7",
+    "@types/node": "^22.7.9",
     "@types/nodemailer": "^6.4.16",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env.EMAIL_USER)
+console.log('PROCESS ENV : ',process.env.EMAIL_USER)
 
 export const transport = nodemailer.createTransport({
   service: 'gmail', 

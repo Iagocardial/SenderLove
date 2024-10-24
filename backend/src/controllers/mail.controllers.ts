@@ -4,7 +4,7 @@ import { giftIdeas } from '../mail-templates/emailTemplates';
 
 export const sendMail = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { name, email } = req.body;
+    const { email } = req.body;
 
     const info = await transport.sendMail({
       to: email,
